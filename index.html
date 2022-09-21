@@ -10,11 +10,18 @@
 		<h1>ubuntu MQTT server(dcoker)</h1>
 	</div>
 	<div>
-		<span>docker pull eclipse-mosquitto</span><span>  //抓取mosquitto server images檔</span>
-		<span>mkdir -p /mosquitto/config</span><span>  //建立本機端與container config對應的資料</span>
-		<span>mkdir -p /mosquitto/data</span><span>  //建立本機端與container data對應的資料</span>
-		<span>mkdir -p /mosquitto/log</span><span>  //建立本機端與container log對應的資料</span>
-		<span>/mosquitto/config/mosquitto.conf</span><span>  //建立本機端與container 要使用的config檔案</span>
+		<h4>安裝mqtt container</h4>
+		<span>docker pull eclipse-mosquitto</span><span>  //抓取mosquitto server images檔</span><br />
+		<span>mkdir -p /mosquitto/config</span><span>  //建立本機端與container config對應的資料</span><br />
+		<span>mkdir -p /mosquitto/data</span><span>  //建立本機端與container data對應的資料</span><br />
+		<span>mkdir -p /mosquitto/log</span><span>  //建立本機端與container log對應的資料</span><br />
+		<span>/mosquitto/config/mosquitto.conf</span><span>  //建立本機端與container 要使用的config檔案(會設定資料存放的路徑,log路徑,port,協定)</span><br />
+		<span>docker run -d --name mqtt -p 1883:1883 -v /mosquitto:/mosquitto -v /mosquitto/data:/mosquitto/data -v /mosquitto/log:/mosquitto/log eclipse-mosquitto</span><span>  //建立 mqtt container 以及設定對應的port 與 資料夾</span><br />
+		<span>docker ps -a</span><span>  //查看有無正常啟動</span><br /><br />
+		<h4>安裝mqtt client</h4>
+		<span>apt install mosquitto-clients</span><span>  //安裝測試工具</span><br />
+		<span>mosquitto_sub -h 127.0.0.1 -t MQTT/Docker</span><span>  //訂閱一個主題 IP為127.0.0.1</span><br />
+		<span>mosquitto_pub -h 127.0.0.1 -t MQTT/Docker -m "pub Message"</span><span>  //發佈的主題 IP為127.0.0.1</span><br />
 	</div>
 </body>
 </html>
